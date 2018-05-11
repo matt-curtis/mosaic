@@ -1,0 +1,136 @@
+/* Base - typography, padding */
+html {
+	--accent-color: #F7426D;
+	font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  
+  body {
+	background-color: #FFF9FA;
+	margin: 0px;
+	padding: 20px;
+	font-size: 20px;
+	-webkit-user-select: none;
+	cursor: default;
+  }
+  
+  /* Controls */
+  input[type="text"], input[type="number"] {
+	font: inherit;
+	background: transparent;
+	padding: 0px;
+	margin: 0px;
+	border: none;
+	border-bottom: 2px solid var(--accent-color);
+  }
+  input[type="text"]:focus, input[type="number"]:focus {
+	outline: none;
+  }
+  input[type="text"]::-webkit-inner-spin-button, input[type="text"]::-webkit-outer-spin-button, input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+  }
+  
+  /* Logo */
+  .logo {
+	font-size: 36px;
+	font-weight: bold;
+	letter-spacing: -2px;
+	color: var(--accent-color);
+	margin-bottom: 30px;
+  }
+  
+  /* Steps */
+  #step-count {
+	text-align: center;
+	width: 3ch;
+  }
+  
+  .step .header {
+	display: flex;
+	align-items: center;
+  }
+  .step .header .title {
+	font-weight: 600;
+  }
+  .step .header .number {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 24px;
+	color: #FFF;
+	background-color: var(--accent-color);
+	border-radius: 100%;
+	width: 40px;
+	height: 40px;
+	margin-right: 20px;
+  }
+  .step .options {
+	margin-left: 60px;
+	padding: 20px;
+	border: 2px solid #FFC7D4;
+	border-radius: 12px;
+	background-color: #FFF;
+  }
+  .step .options .option {
+	display: flex;
+	justify-content: space-between;
+	align-items: top;
+  }
+  .step .options .option:focus-within .label {
+	font-weight: bold;
+	color: var(--accent-color);
+  }
+  .step .options .option::after {
+	display: block;
+	content: attr(data-value-symbol);
+	margin-left: 4px;
+	width: 1ch;
+  }
+  .step .options .option:not(:last-child) {
+	margin-bottom: 12px;
+  }
+  .step .options .option .label {
+	flex-grow: 1;
+  }
+  .step .options .option .value {
+	text-align: right;
+	width: 4ch;
+  }
+  .step:not(:first-child) {
+	margin-top: 16px;
+  }
+  
+  button {
+	-webkit-appearance: none;
+	   -moz-appearance: none;
+			appearance: none;
+	background-color: var(--accent-color);
+	border: none;
+	padding: 8px 20px;
+	font: inherit;
+	font-weight: bold;
+	color: #FFF;
+	border-radius: 20px;
+	cursor: pointer;
+  }
+  button:focus {
+	outline: none;
+  }
+  button:active {
+	padding-top: 9px;
+	padding-bottom: 7px;
+	box-shadow: inset 0px 4px 0px rgba(0, 0, 0, 0.2);
+  }
+  
+  .hint {
+	margin-top: 12px;
+	margin-left: 60px;
+	font-size: 14px;
+  }
+  
+  #duuuplicate-btn {
+	margin-top: 28px;
+	margin-left: 60px;
+  }
+  
+  

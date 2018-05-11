@@ -1,0 +1,31 @@
+{
+	"name": "Duuuplicator",
+	"description": "Duuuplicator helps you arrange copies of layers in amazing patterns!",
+	
+	"author": "Matt Curtis",
+	"authorEmail": "",
+	
+	"identifier": "com.matt-curtis.duuuplicator",
+	"version": "1.1.2",
+
+	"commands": [
+		{
+			"script": "script.js",
+			"name": "Duuuplicator",
+			"handlers": {
+				"run": "onRun",
+				"actions": {
+					"Shutdown": "onShutdown"
+				}
+			},
+			"identifier": "open"
+	 	}
+	],
+
+	"menu": {
+		"items": [
+			"open"
+		],
+		"isRoot": true
+	}
+}
