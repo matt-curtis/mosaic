@@ -74,8 +74,6 @@ function createWindow(){
 	window.titlebarAppearsTransparent = true;
 	window.titleVisibility = NSWindowTitleHidden;
 
-	window.collectionBehavior = NSWindowCollectionBehaviorTransient;
-
 	window.backgroundColor = NSColor.call({ colorWithRed: 1, green: 0.98, blue: 0.98, alpha: 1 });
 
 	return window;
