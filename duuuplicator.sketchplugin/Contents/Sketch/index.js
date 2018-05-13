@@ -20,5 +20,5 @@ function onRun(context){
 };
 
 function onShutdown(){
-	UI.destroy();
+	UI.cleanup();
 };

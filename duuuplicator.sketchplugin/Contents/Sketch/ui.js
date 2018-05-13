@@ -108,7 +108,7 @@ function loadAndShow(baseURL, onDuplicateMessage){
 	_window = window;
 };
 
-function destroy(){
+function cleanup(){
 	if(_window){
 		_window.orderOut(nil);
 		_window = null;
@@ -117,4 +117,4 @@ function destroy(){
 
 //	Export
 
-module.exports = { loadAndShow, destroy };
+module.exports = { loadAndShow, cleanup };

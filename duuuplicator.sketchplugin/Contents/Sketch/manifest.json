@@ -10,7 +10,7 @@
 
 	"commands": [
 		{
-			"script": "script.js",
+			"script": "index.js",
 			"name": "Duuuplicator",
 			"handlers": {
 				"run": "onRun",
