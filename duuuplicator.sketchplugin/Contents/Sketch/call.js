@@ -18,7 +18,11 @@ function call(target, methodParts){
 		values.push(methodParts[label]);
 	}
 
-	//	Safety check:
+	//	Safety checks:
+
+	if(selector.length == 0){
+		throw "Empty object with no keys provided. Unable to construct selector.";
+	}
 
 	const method = target[selector];
 
