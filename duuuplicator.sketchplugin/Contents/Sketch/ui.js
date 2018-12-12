@@ -1,70 +1,54 @@
-require("./call").bindToObjectPrototype();
+const MochaJSDelegate = require("./MochaJSDelegate");
 
 var _window;
 
 //	Private
 
-function createWebView(pageURL, onLoadFinish, onDuplicateMessage){
+function createWebView(pageURL, onApplyMessage, onLoadFinish){
 	const webView = WKWebView.alloc().init();
+
+	//	Create delegate
+
+	const delegate = new MochaJSDelegate({
+		"webView:didFinishNavigation:": (webView, navigation) => {
+			onLoadFinish();
+		},
+		"userContentController:didReceiveScriptMessage:": (_, wkMessage) => {
+			const message = JSON.parse(wkMessage.body());
+			
+			onApplyMessage(message);
+		}
+	}).getClassInstance();
 
 	//	Set load complete handler
 
-	const webViewLoadDelegate = new MochaJSDelegate({
-		"webView:didFinishNavigation:": (webView, navigation) => {
-			onLoadFinish();
-		}
-	});
-
-	webView.navigationDelegate = webViewLoadDelegate.getClassInstance();;
+	webView.navigationDelegate = delegate;
 
 	//	Set handler for messages from script
 
 	const userContentController = webView.configuration().userContentController();
 
-	const scriptMessageHandler = new MochaJSDelegate({
-		"userContentController:didReceiveScriptMessage:": (_, wkMessage) => {
-			const jsonData = NSJSONSerialization.call({
-				dataWithJSONObject: wkMessage.body(),
-				options: 0, error: null
-			});
-
-			const jsonString = NSString.alloc().call({
-				initWithData: jsonData, encoding: NSUTF8StringEncoding
-			});
-			
-			const message = JSON.parse(jsonString+"");
-			
-			onDuplicateMessage(message);
-		}
-	});
-
-	userContentController.call({
-		addScriptMessageHandler: scriptMessageHandler.getClassInstance(),
-		name: "sketchPlugin"
-	});
+	userContentController.addScriptMessageHandler_name(delegate, "sketchPlugin");
 
 	//	Load page into web view
 
-	webView.call({
-		loadFileURL: pageURL,
-		allowingReadAccessToURL: pageURL.URLByDeletingLastPathComponent()
-	});
+	webView.loadFileURL_allowingReadAccessToURL(pageURL, pageURL.URLByDeletingLastPathComponent());
 
 	return webView;
 };
 
 function createWindow(){
-	const window = NSPanel.alloc().call({
-		initWithContentRect: NSMakeRect(0, 0, 420, 646),
-		styleMask: NSWindowStyleMaskClosable | NSWindowStyleMaskTitled | NSWindowStyleMaskResizable,
-		backing: NSBackingStoreBuffered,
-		defer: false
-	});
-
-	window.frameAutosaveName = "duuuplicator-panel-frame";
+	const window = NSPanel.alloc().initWithContentRect_styleMask_backing_defer(
+		NSMakeRect(0, 0, 420, 646),
+		NSWindowStyleMaskClosable | NSWindowStyleMaskTitled | NSWindowStyleMaskResizable,
+		NSBackingStoreBuffered,
+		false
+	);
 
 	window.becomesKeyOnlyIfNeeded = true;
 	window.floatingPanel = true;
+
+	window.frameAutosaveName = "mosaic-panel-frame";
 
 	window.releasedWhenClosed = false;
 
@@ -73,8 +57,8 @@ function createWindow(){
 
 	window.titlebarAppearsTransparent = true;
 	window.titleVisibility = NSWindowTitleHidden;
-
-	window.backgroundColor = NSColor.call({ colorWithRed: 1, green: 0.98, blue: 0.98, alpha: 1 });
+	
+	window.backgroundColor = NSColor.colorWithRed_green_blue_alpha(1, 0.98, 0.98, 1);
 
 	return window;
 };
@@ -85,7 +69,7 @@ function showWindow(window){
 
 //	Public
 
-function loadAndShow(baseURL, onDuplicateMessage){
+function loadAndShow(baseURL, onApplyMessage){
 	if(_window){
 		showWindow(_window);
 
@@ -97,9 +81,9 @@ function loadAndShow(baseURL, onDuplicateMessage){
 		.URLByAppendingPathComponent("../Resources/web-ui/index.html");
 
 	const window = createWindow();
-	const webView = createWebView(pageURL, () => {
+	const webView = createWebView(pageURL, onApplyMessage, () => {
 		showWindow(window);
-	}, onDuplicateMessage);
+	});
 
 	window.contentView = webView;
 

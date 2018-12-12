@@ -11,7 +11,7 @@ function getOptions(formId){
 	return options;
 };
 
-function duuuplicate(){
+function apply(){
 	//	Grab options
 	
 	const stepCount = parseFloat(document.getElementById("step-count").value);
@@ -21,9 +21,9 @@ function duuuplicate(){
 	//	Send options for duuuplication to plugin
 	
 	if(window.webkit && window.webkit.messageHandlers.sketchPlugin){
-		window.webkit.messageHandlers.sketchPlugin.postMessage({
+		window.webkit.messageHandlers.sketchPlugin.postMessage(JSON.stringify({
 			stepCount, startingOptions, stepOptions
-		});
+		}));
 	} else {
 		console.error("Failed to duuuplicate - could not to find 'sketchPlugin' message handler. Is every thing set up properly for messaging?");
 	}
@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	//	Set up Duuuplicate! button to trigger a duplication
 	
 	document.getElementById("duuuplicate-btn").addEventListener("click", () => {
-		duuuplicate();
+		apply();
 	});
 	
 	//	Add ENTER key shortcut

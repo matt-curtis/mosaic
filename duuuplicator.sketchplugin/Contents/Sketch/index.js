@@ -1,24 +1,20 @@
-const MochaJSDelegate = require("./MochaJSDelegate");
 const UI = require("./ui");
-const duuuplicate = require("./duuuplicate");
+const mosaic = require("./mosaic");
+const Async = require("sketch/async");
 
 //	Sketch Handlers
 
+var fiber;
+
 function onRun(context){
-	if(coscript.shouldKeepAround()){
-		coscript.shouldKeepAround = false;
-		onShutdown();
-
-		return;
+	if(!fiber){
+		fiber = Async.createFiber();
+		fiber.onCleanup(() => {
+			UI.cleanup();
+		});
 	}
-
-	coscript.shouldKeepAround = true;
-
-	UI.loadAndShow(context.scriptURL, duplicationOptions => {
-		duuuplicate(duplicationOptions);
+	
+	UI.loadAndShow(context.scriptURL, options => {
+		mosaic(options);
 	});
-};
-
-function onShutdown(){
-	UI.cleanup();
 };

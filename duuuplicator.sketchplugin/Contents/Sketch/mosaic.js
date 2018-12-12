@@ -3,23 +3,15 @@ const Settings = require("sketch/settings");
 const UI = require("sketch/ui");
 const Constants = require("./constants");
 
-function getSelectedLayer(document){
-	return document.selectedLayers.layers[0];
-};
-
-function isLayerSpecialGroup(layer){
-	return !!Settings.layerSettingForKey(layer, Constants.isSpecialGroupKey);
-};
-
 function findOrMakeSpecialGroupIfNeeded(layer){
 	//	Loop up through the parent hierarchy, looking for a special group
 
 	var layerToCheck = layer;
 
 	while(layerToCheck){
-		if(isLayerSpecialGroup(layerToCheck)){
-			return layerToCheck;
-		}
+		let isSpecialGroup = !!Settings.layerSettingForKey(layerToCheck, Constants.isSpecialGroupKey);
+
+		if(isSpecialGroup) return layerToCheck;
 
 		layerToCheck = layerToCheck.parent;
 	}
@@ -66,23 +58,23 @@ function stepOptionsBy(start, step){
 	return newOptions;
 };
 
-function duuuplicate(duplicationOptions){
+function mosaic(options){
 	const document = Document.getSelectedDocument();
 
 	//	Safety check:
 
 	if(!document){
-		UI.alert("Duuuplicator", "Please select/focus a document.");
+		UI.alert("Mosaic", "⚠️ Please select/focus a document.");
 
 		return;
 	}
 
 	//	Safety check:
 
-	const selectedLayer = getSelectedLayer(document);
+	const selectedLayer = document.selectedLayers.layers[0];
 
 	if(!selectedLayer){
-		UI.alert("Duuuplicator", "Please select a layer to duplicate.");
+		UI.alert("Mosaic", "⚠️ Please select a layer to duplicate.");
 		
 		return;
 	}
@@ -91,20 +83,27 @@ function duuuplicate(duplicationOptions){
 
 	const group = findOrMakeSpecialGroupIfNeeded(selectedLayer);
 	
-	//	Get to stepping
+	//	Destructure options:
 
-	var { stepCount, startingOptions, stepOptions } = duplicationOptions;
+	var { stepCount, startingOptions, stepOptions } = options;
 	
 	stepCount = Math.max(1, stepCount);
 	
+	//	Remove all layers except the first:
+
 	while(group.layers.length > 1){
 		group.layers[group.layers.length - 1].remove();
 	}
+
+	//	Configure template layer
 
 	var layer = group.layers[0];
 	
 	configureLayer(layer, startingOptions);
 	
+	//	Create duplicates until we've met the desired step count
+	//	Configure each duplicate using the desired options
+
 	var currentOptions = stepOptionsBy(startingOptions, stepOptions);
 
 	for(let i = 0; i < (stepCount - 1); i++){
@@ -116,10 +115,14 @@ function duuuplicate(duplicationOptions){
 		layer = duplicateLayer;
 	}
 
+	//	Fit group to duplicates
+
 	group.adjustToFit();
+
+	//	Set selection to the group
 
 	document.selectedLayers.clear();
 	group.selected = true;
 };
 
-module.exports = duuuplicate;
+module.exports = mosaic;

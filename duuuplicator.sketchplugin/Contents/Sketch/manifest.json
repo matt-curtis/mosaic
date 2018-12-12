@@ -1,22 +1,21 @@
 {
-	"name": "Duuuplicator",
-	"description": "Duuuplicator helps you arrange copies of layers in amazing patterns!",
+	"name": "Mosaic",
+	"description": "Mosaic helps you arrange copies of layers in amazing patterns!",
 	
 	"author": "Matt Curtis",
 	"authorEmail": "",
 	
-	"identifier": "com.matt-curtis.duuuplicator",
-	"version": "1.1.2",
+	"identifier": "com.matt-curtis.mosaic",
+	"version": "1.0",
+
+	"disableCocoaScriptPreprocessor": true,
 
 	"commands": [
 		{
 			"script": "index.js",
-			"name": "Duuuplicator",
+			"name": "Mosaic",
 			"handlers": {
-				"run": "onRun",
-				"actions": {
-					"Shutdown": "onShutdown"
-				}
+				"run": "onRun"
 			},
 			"identifier": "open"
 	 	}
