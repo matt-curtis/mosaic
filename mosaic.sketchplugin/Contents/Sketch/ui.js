@@ -39,7 +39,7 @@ function createWebView(pageURL, onApplyMessage, onLoadFinish){
 
 function createWindow(){
 	const window = NSPanel.alloc().initWithContentRect_styleMask_backing_defer(
-		NSMakeRect(0, 0, 420, 646),
+		NSMakeRect(0, 0, 145, 500),
 		NSWindowStyleMaskClosable | NSWindowStyleMaskTitled | NSWindowStyleMaskResizable,
 		NSBackingStoreBuffered,
 		false
@@ -50,15 +50,17 @@ function createWindow(){
 
 	window.frameAutosaveName = "mosaic-panel-frame";
 
+	window.minSize = window.frame().size;
+	window.maxSize = window.frame().size;
+
 	window.releasedWhenClosed = false;
 
 	window.standardWindowButton(NSWindowZoomButton).hidden = true;
 	window.standardWindowButton(NSWindowMiniaturizeButton).hidden = true;
 
 	window.titlebarAppearsTransparent = true;
-	window.titleVisibility = NSWindowTitleHidden;
 	
-	window.backgroundColor = NSColor.colorWithRed_green_blue_alpha(1, 0.98, 0.98, 1);
+	window.backgroundColor = NSColor.colorWithRed_green_blue_alpha(0.95, 0.95, 0.95, 1.0);
 
 	return window;
 };

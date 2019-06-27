@@ -1,0 +1,83 @@
+html {
+	--control-background: #FFF;
+	--control-border: #D4D4D4;
+  }
+  
+  body {
+	background: #F2F2F2;
+	font-family: -apple-system;
+	margin: 10px;
+	-webkit-user-select: none;
+	   -moz-user-select: none;
+		-ms-user-select: none;
+			user-select: none;
+	cursor: default;
+  }
+  
+  h1, h2 {
+	margin: 0;
+	margin-bottom: 10px;
+	font-size: 12px;
+  }
+  
+  h1 {
+	color: #767676;
+	font-weight: bold;
+	text-transform: uppercase;
+  }
+  
+  .textfield {
+	display: grid;
+	grid-template-columns: 1fr -webkit-min-content;
+	grid-template-columns: 1fr min-content;
+	align-items: center;
+	height: 20px;
+	padding: 0 5px;
+	background: var(--control-background);
+	border: 1px solid var(--control-border);
+	border-radius: 4px;
+  }
+  .textfield > input {
+	background: transparent;
+	border: none;
+	padding: 0;
+	font-size: 11px;
+	min-width: 0;
+	grid-column: 1 / 2;
+  }
+  .textfield::after {
+	display: inline;
+	content: attr(data-unit);
+	color: #828282;
+	font-size: 11px;
+	grid-column: 2 / 3;
+	grid-row: 1 / 2;
+  }
+  .textfield:not(:hover) > input::-webkit-inner-spin-button, .textfield:not(:hover) > input::-webkit-outer-spin-button {
+	display: none;
+  }
+  
+  .textfield-row {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-gap: 10px;
+  }
+  
+  .textfield-label-content {
+	font-size: 11px;
+	text-align: center;
+	margin-top: 2px;
+  }
+  
+  hr {
+	border: none;
+	background: #D9D9D9;
+	height: 1px;
+	margin-top: 10px;
+  }
+  
+  #apply-btn {
+	display: block;
+	margin: 20px auto 0 auto;
+  }
+  

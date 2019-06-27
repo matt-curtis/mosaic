@@ -19,8 +19,11 @@ function findOrMakeSpecialGroupIfNeeded(layer){
 	//	Group
 
 	const destinationParent = layer.parent;
+
+	layer.remove(); // remove layer from it's existing parent before adding to group
+
 	const group = new Group({
-		name: "Duuuplicate Group",
+		name: "Mosaic",
 		layers: [ layer ],
 		parent: destinationParent
 	});
@@ -85,9 +88,9 @@ function mosaic(options){
 	
 	//	Destructure options:
 
-	var { stepCount, startingOptions, stepOptions } = options;
+	var { numberOfCopies, startingOptions, stepOptions } = options;
 	
-	stepCount = Math.max(1, stepCount);
+	numberOfCopies = Math.max(1, numberOfCopies);
 	
 	//	Remove all layers except the first:
 
@@ -101,12 +104,12 @@ function mosaic(options){
 	
 	configureLayer(layer, startingOptions);
 	
-	//	Create duplicates until we've met the desired step count
+	//	Create duplicates until we've met the desired number
 	//	Configure each duplicate using the desired options
 
 	var currentOptions = stepOptionsBy(startingOptions, stepOptions);
 
-	for(let i = 0; i < (stepCount - 1); i++){
+	for(let i = 0; i < (numberOfCopies - 1); i++){
 		let duplicateLayer = layer.duplicate();
 
 		configureLayer(duplicateLayer, currentOptions, true);

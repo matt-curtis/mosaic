@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="stylesheet" href="style.css" />
+		<script src="script.js"></script>
+	</head>
+
+	<body>
+			<h1>Mosaic</h1>
+
+			<h2>Number of Copies</h2>
+			
+			<div class="textfield-row">
+				<div class="textfield">
+					<input type="number" value="1" id="number-of-copies" />
+				</div>
+			</div>
+			
+			<hr />
+			
+			<h1>Properties</h1>
+			
+			<h2>Direction</h2>
+			
+			<form class="textfield-row" id="direction">
+				<label>
+					<div class="textfield" data-unit="°">
+						<input type="number" value="0" name="initial" />
+					</div>
+					<div class="textfield-label-content">Initial</div>
+				</label>
+				<label>
+					<div class="textfield" data-unit="°">
+						<input type="number" value="0" name="increment" />
+					</div>
+					<div class="textfield-label-content">Increment</div>
+				</label>
+			</form>
+			
+			<hr />
+			
+			<h2>Rotation</h2>
+			
+			<form class="textfield-row" id="rotation">
+				<label>
+					<div class="textfield" data-unit="°">
+						<input type="number" value="0" name="initial" />
+					</div>
+					<div class="textfield-label-content">Initial</div>
+				</label>
+				<label>
+					<div class="textfield" data-unit="°">
+						<input type="number" value="0" name="increment" />
+					</div>
+					<div class="textfield-label-content">Increment</div>
+				</label>
+			</form>
+			
+			<hr />
+			
+			<h2>Spacing</h2>
+			
+			<form class="textfield-row" id="spacing">
+				<label>
+					<div class="textfield" data-unit="px">
+						<input type="number" value="0" name="initial" />
+					</div>
+					<div class="textfield-label-content">Initial</div>
+				</label>
+				<label>
+					<div class="textfield" data-unit="px">
+						<input type="number" value="0" name="increment" />
+					</div>
+					<div class="textfield-label-content">Increment</div>
+				</label>
+			</form>
+			
+			<hr />
+			
+			<h2>Opacity</h2>
+			
+			<form class="textfield-row" id="opacity">
+				<label>
+					<div class="textfield" data-unit="%">
+						<input type="number" value="100" name="initial" />
+					</div>
+					<div class="textfield-label-content">Initial</div>
+				</label>
+				<label>
+					<div class="textfield" data-unit="%">
+						<input type="number" value="0" name="increment" />
+					</div>
+					<div class="textfield-label-content">Increment</div>
+				</label>
+			</form>
+			
+			<button id="apply-btn">Apply</button>
+	</body>
+</html>
